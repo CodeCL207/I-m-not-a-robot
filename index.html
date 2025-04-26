@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm not a robot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .checkbox-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .checkbox-container input {
+            margin-right: 10px;
+            accent-color: #4caf50;
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .button.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .second-checkbox-container {
+            margin-top: 15px;
+            display: none;
+            font-size: 16px;
+        }
+
+        .second-checkbox-container input {
+            margin-right: 10px;
+            accent-color: #4caf50;
+        }
+
+        .question {
+            font-size: 16px;
+            color: #000000;
+        }
+
+        .third-checkbox-container {
+            margin-top: 20px;
+            display: none;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .third-checkbox-container input {
+            margin-right: 10px;
+            accent-color: #4caf50;
+        }
+
+        .third-checkbox-container label {
+            margin-right: 10px; 
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="checkbox-container">
+            <input type="checkbox" id="robotCheckbox" onclick="showSecondCheckbox()">
+            <label for="robotCheckbox">I'm not a robot</label>
+        </div>
+
+        <div class="second-checkbox-container" id="secondCheckboxContainer">
+            <input type="checkbox" id="sureCheckbox" onclick="showQuestion()">
+            <label for="sureCheckbox">Are you sure ?</label>
+        </div>
+
+        <div class="question" id="QuestionContainer" style="display:none;">
+            <p>Why aren't you a robot?</p>
+            <div class="third-checkbox-container" id="thirdCheckboxContainer">
+                <input type="checkbox" id="becauseCheckbox" onclick="handleCheckboxClick('because')">
+                <label for="becauseCheckbox">Because</label><br>
+                <input type="checkbox" id="goodQuestionCheckbox" onclick="handleCheckboxClick('goodQuestion')">
+                <label for="goodQuestionCheckbox">Good question</label>
+            </div>
+        </div>
+
+        <button id="submitButton" class="button" onclick="redirectToLink()">Confirmer</button>
+    </div>
+
+    <script>
+        function showSecondCheckbox() {
+            var robotCheckbox = document.getElementById('robotCheckbox');
+            var secondCheckboxContainer = document.getElementById('secondCheckboxContainer');
+            var questionContainer = document.getElementById('QuestionContainer');
+            var thirdCheckboxContainer = document.getElementById('thirdCheckboxContainer');
+
+            if (robotCheckbox.checked) {
+                secondCheckboxContainer.style.display = 'block';
+                questionContainer.style.display = 'none'; 
+                thirdCheckboxContainer.style.display = 'none';
+            } else {
+                secondCheckboxContainer.style.display = 'none';
+                document.getElementById('sureCheckbox').checked = false;
+                document.getElementById('submitButton').classList.remove('active');
+                questionContainer.style.display = 'none'; 
+                thirdCheckboxContainer.style.display = 'none';
+            }
+        }
+
+        function showQuestion() {
+            var sureCheckbox = document.getElementById('sureCheckbox');
+            var questionContainer = document.getElementById('QuestionContainer');
+            var thirdCheckboxContainer = document.getElementById('thirdCheckboxContainer');
+
+            if (sureCheckbox.checked) {
+                questionContainer.style.display = 'block';
+                thirdCheckboxContainer.style.display = 'block';
+            } else {
+                questionContainer.style.display = 'none';
+                thirdCheckboxContainer.style.display = 'none';
+                document.getElementById('submitButton').classList.remove('active');
+            }
+        }
+
+        function handleCheckboxClick(checkbox) {
+            var becauseCheckbox = document.getElementById('becauseCheckbox');
+            var goodQuestionCheckbox = document.getElementById('goodQuestionCheckbox');
+
+            if (checkbox === 'because') {
+                goodQuestionCheckbox.checked = false;
+            } else if (checkbox === 'goodQuestion') {
+                becauseCheckbox.checked = false;
+            }
+
+            enableButton();
+        }
+
+        function enableButton() {
+            var becauseCheckbox = document.getElementById('becauseCheckbox');
+            var submitButton = document.getElementById('submitButton');
+
+            if (becauseCheckbox.checked) {
+                submitButton.classList.add('active');
+            } else {
+                submitButton.classList.remove('active');
+            }
+        }
+
+        function redirectToLink() {
+            window.location.href = 'https://www.youtube.com/watch?v=xvFZjo5PgG0';
+        }
+    </script>
+
+</body>
+</html>
